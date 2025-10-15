@@ -85,8 +85,8 @@
 
 #if !(defined(VMS) || defined(__VMS)) /* VMS uses logical names instead */
 #if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
-#define ENGINESDIR "../obj/amd64-linux.gcc-pthreads/lib/engines"
-#define OPENSSLDIR "../obj/amd64-linux.gcc-pthreads/../obj/amd64-linux.gcc-pthreads"
+#define ENGINESDIR "/home/qy8197/scratchcloud/parsec-benchmark/pkgs/libs/ssl/inst/amd64-linux.gcc/lib/engines"
+#define OPENSSLDIR "/home/qy8197/scratchcloud/parsec-benchmark/pkgs/libs/ssl/inst/amd64-linux.gcc/ssl"
 #endif
 #endif
 

@@ -145,17 +145,27 @@ SET(PASSED_FIRST_CONFIGURE ON CACHE INTERNAL "Already Configured once?")
 ADD_DEFINITIONS(-D__$(USER)__)
 
 SUBDIRS(
-	RTTL     # core library
-	LRT      # low level ray tracer
-	MiniView  # frontends
-	)
+  RTTL     # core library
+  LRT      # low level ray tracer
+)
 
-ADD_EXECUTABLE(test_glut Testing/testglut)
-TARGET_LINK_LIBRARIES(test_glut ${GLUT_glut_LIBRARY} ${GL_LIBS} $ENV{LIBS})
+OPTION(BUILD_MINIVIEW "Build OpenGL GLUT MiniView frontend" ON)
+IF(BUILD_MINIVIEW AND GLUT_glut_LIBRARY AND OPENGL_gl_LIBRARY)
+  ADD_SUBDIRECTORY(MiniView)
+  SET(BUILD_MINIVIEW_OK 1)
+ELSE()
+  SET(BUILD_MINIVIEW_OK 0)
+ENDIF()
+
+IF(BUILD_MINIVIEW_OK)
+  ADD_EXECUTABLE(test_glut Testing/testglut)
+  TARGET_LINK_LIBRARIES(test_glut ${GLUT_glut_LIBRARY} ${GL_LIBS} $ENV{LIBS})
+  INSTALL(TARGETS test_glut RUNTIME DESTINATION bin)
+ENDIF()
 
 #ADD_EXECUTABLE(test_pbo Testing/testpbo)
 #TARGET_LINK_LIBRARIES(test_pbo ${GLUT_glut_LIBRARY} ${GL_LIBS} $ENV{LIBS} stdc++)
 
-INSTALL(TARGETS test_glut RUNTIME DESTINATION bin)
+# INSTALL for test_glut handled above when MiniView is enabled
 #INSTALL(TARGETS test_pbo RUNTIME DESTINATION bin)
 

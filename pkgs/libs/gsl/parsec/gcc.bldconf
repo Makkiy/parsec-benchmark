@@ -18,7 +18,6 @@ build_deps=""
 
 # Environment to use for configure script and Makefile
 # For some reason gsl doesn't add -lm to the link list
-build_env="LIBS=\"${LIBS} -lm\""
 
 # Whether the build system supports only in-place compilation.
 # If TRUE, then all sources will be copied to the build directory before we
@@ -27,4 +26,10 @@ build_env="LIBS=\"${LIBS} -lm\""
 build_inplace="FALSE"
 
 # Arguments to pass to the configure script, if it exists
-build_conf="--disable-shared"
+# Disable docs to avoid texinfo dependency and install into local PARSEC tree
+## Add -lm to LIBS and make makeinfo a no-op so we don't need texinfo
+build_env="LIBS=\"${LIBS} -lm\" MAKEINFO=":""
+
+## Configure: install into local PARSEC tree and skip building docs
+## --disable-docs makes automake skip makeinfo targets on older gsl
+build_conf="--disable-shared --disable-static --disable-docs --prefix=${PARSECDIR}/pkgs/libs/gsl/inst/${PLATFORM}"

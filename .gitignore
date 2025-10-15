@@ -1,5 +1,118 @@
 *.swp
+*.swo
+*~
 
+# Python/editor caches
+__pycache__/
+*.pyc
+
+# Common binary/object/library artifacts
+*.o
+*.obj
+*.lo
+*.la
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+
+# Temporary/backup/patch leftovers
+*.tmp
+*.bak
+*.orig
+*.rej
+
+
+# Parsec builds
 */*/*/inst
+*/*/*/*/inst
 */*/*/obj
-log
+*/*/*/*/obj
+
+# Build system byproducts
+.libs
+.deps/
+.dirstamp
+config.log
+config.status
+libtool
+
+# CMake artifacts (kept broad but typically only appear in build dirs)
+**/CMakeCache.txt
+**/CMakeFiles/
+**/cmake_install.cmake
+**/build.ninja
+**/*.ninja
+**/install_manifest.txt
+**/CMakeCPackOptions.cmake
+**/CPackConfig.cmake
+**/CPackSourceConfig.cmake
+**/CTest*.cmake
+**/CTest*.ctest
+
+# Logs and caches
+log/
+*.log
+.cache/
+*.cache
+
+# PARSEC package run outputs and build byproducts inside src trees
+pkgs/*/*/run/
+pkgs/*/*/run/*
+pkgs/*/*/src/autom4te.cache/
+pkgs/*/*/src/autom4te.cache/*
+pkgs/*/*/src/.deps/
+pkgs/*/*/src/*/.deps/
+pkgs/*/*/src/.libs/
+pkgs/*/*/src/*/.libs/
+pkgs/*/*/src/.dirstamp
+pkgs/*/*/src/*/.dirstamp
+pkgs/*/*/src/*/stamp-*
+pkgs/*/*/src/config.cache
+pkgs/*/*/src/config.h
+
+# OpenSSL (ssl) generated artifacts
+pkgs/libs/ssl/src/apps/openssl
+pkgs/libs/ssl/src/crypto/lib
+pkgs/libs/ssl/src/crypto/lib/
+pkgs/libs/ssl/src/crypto/lib/**
+pkgs/libs/ssl/src/crypto/*/lib
+pkgs/libs/ssl/src/crypto/*/lib/
+pkgs/libs/ssl/src/crypto/*/lib/**
+pkgs/libs/ssl/src/crypto/*/*/lib
+pkgs/libs/ssl/src/crypto/*/*/lib/
+pkgs/libs/ssl/src/crypto/*/*/lib/**
+pkgs/libs/ssl/src/ssl/lib
+pkgs/libs/ssl/src/ssl/lib/
+pkgs/libs/ssl/src/ssl/lib/**
+pkgs/libs/ssl/src/engines/lib
+pkgs/libs/ssl/src/engines/lib/
+pkgs/libs/ssl/src/engines/lib/**
+pkgs/libs/ssl/src/engines/*/lib
+pkgs/libs/ssl/src/engines/*/lib/
+pkgs/libs/ssl/src/engines/*/lib/**
+pkgs/libs/ssl/src/crypto/*.s
+pkgs/libs/ssl/src/crypto/*/*.s
+pkgs/libs/ssl/src/crypto/*/*/*.s
+pkgs/libs/ssl/src/*.pc
+pkgs/libs/ssl/src/rehash.time
+pkgs/libs/ssl/src/test/
+pkgs/libs/ssl/src/test/*
+pkgs/libs/ssl/src/crypto/buildinf.h
+
+# CMake bootstrap outputs in tools/cmake
+pkgs/tools/cmake/src/Bootstrap.cmk/
+pkgs/tools/cmake/src/Bootstrap.cmk/*
+pkgs/tools/cmake/src/
+pkgs/tools/cmake/src/**
+
+# Archives produced during builds/downloads
+*.tar
+*.tar.*
+*.tgz
+*.zip
+*.bz2
+*.xz
+*.gz

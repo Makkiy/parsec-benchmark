@@ -26,5 +26,9 @@ build_env="PATH=\"${CC_HOME}/bin:${PATH}\""
 build_inplace="TRUE"
 
 # Arguments to pass to the configure script, if it exists
-build_conf="threads no-zlib no-shared"
+# Install into the PARSEC package install dir to avoid system /usr/local writes
+build_conf="threads no-zlib no-shared --prefix=${PARSECDIR}/pkgs/libs/ssl/inst/${PLATFORM}"
+
+# Ensure configure/make see the desired PATH and LIBS
+build_env="PATH=\"${CC_HOME}/bin:${PATH}\" LIBS=\"${LIBS}\""
 

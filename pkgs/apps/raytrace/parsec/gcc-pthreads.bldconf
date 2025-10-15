@@ -15,13 +15,25 @@
 
 
 # Package dependencies
-build_deps="cmake mesa"
+# Use bundled cmake/mesa when available; allow system cmake and headless builds.
+# To force headless (no GL), export RAYTRACE_HEADLESS=1 before building; you'll still need X11 libs if GL is enabled.
+if command -v ${PARSECDIR}/pkgs/tools/cmake/inst/${PARSECPLAT}/bin/cmake >/dev/null 2>&1; then
+	build_deps="cmake mesa"
+else
+	build_deps=""
+fi
 
 # Environment to use for configure script and Makefile
 # NOTE: By default PARSEC links raytrace to mesa with Xlib driver so that all
 #       computations are done by the CPU. This requires to also link to the X
 #       libraries and the pthreads library.
-build_env="version=pthreads CXXFLAGS=\"-I${PARSECDIR}/pkgs/libs/mesa/inst/${PARSECPLAT}/include ${CXXFLAGS} -fexceptions -fno-strict-aliasing -fno-align-labels -DNDEBUG -D_MM_NO_ALIGN_CHECK\" LDFLAGS=\"-L${PARSECDIR}/pkgs/libs/mesa/inst/${PARSECPLAT}/lib ${LDFLAGS}\" LIBS=\"${LIBS} -lGL -lGLU -lXmu -lXext -lXau -lX11 -ldl -lpthread\""
+# Default to pthreads; add Mesa/X11 only if present and not headless
+if [ -d "${PARSECDIR}/pkgs/libs/mesa/inst/${PARSECPLAT}" ] && [ "${RAYTRACE_HEADLESS}" != "1" ]; then
+	build_env="version=pthreads CXXFLAGS=\"-I${PARSECDIR}/pkgs/libs/mesa/inst/${PARSECPLAT}/include ${CXXFLAGS} -fexceptions -fno-strict-aliasing -fno-align-labels -DNDEBUG -D_MM_NO_ALIGN_CHECK\" LDFLAGS=\"-L${PARSECDIR}/pkgs/libs/mesa/inst/${PARSECPLAT}/lib ${LDFLAGS}\" LIBS=\"${LIBS} -lGL -lGLU -lXmu -lXext -lXau -lX11 -ldl -lpthread\""
+else
+	# Minimal flags to compile core without linking MiniView; still uses pthreads
+	build_env="version=pthreads CXXFLAGS=\"${CXXFLAGS} -fexceptions -fno-strict-aliasing -fno-align-labels -DNDEBUG -D_MM_NO_ALIGN_CHECK\" LDFLAGS=\"${LDFLAGS}\" LIBS=\"${LIBS} -lpthread -ldl\""
+fi
 
 # Whether the build system supports only in-place compilation.
 # If TRUE, then all sources will be copied to the build directory before we

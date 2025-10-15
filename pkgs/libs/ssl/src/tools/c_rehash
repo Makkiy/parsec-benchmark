@@ -6,8 +6,8 @@
 
 my $openssl;
 
-my $dir = "../obj/amd64-linux.gcc-pthreads/../obj/amd64-linux.gcc-pthreads";
-my $prefix = "../obj/amd64-linux.gcc-pthreads";
+my $dir = "/home/qy8197/scratchcloud/parsec-benchmark/pkgs/libs/ssl/inst/amd64-linux.gcc/ssl";
+my $prefix = "/home/qy8197/scratchcloud/parsec-benchmark/pkgs/libs/ssl/inst/amd64-linux.gcc";
 
 if(defined $ENV{OPENSSL}) {
 	$openssl = $ENV{OPENSSL};

@@ -4,6 +4,19 @@
 
 #include <stdlib.h>
 
+/* Provide a fallback for HUGE (historic macro) on platforms that don't
+ * define it. Prefer float/double INFINITY/HUGE_VAL variants if available.
+ */
+#ifndef HUGE
+# if defined(HUGE_VALF)
+#  define HUGE HUGE_VALF
+# elif defined(HUGE_VAL)
+#  define HUGE HUGE_VAL
+# else
+#  define HUGE 1e30
+# endif
+#endif
+
 typedef struct {
 	uint32_t key;
 	uint32_t index;

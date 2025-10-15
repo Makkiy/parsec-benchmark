@@ -18,7 +18,12 @@
 build_deps="ssl zlib"
 
 # Environment to use for configure script and Makefile
-build_env="version=pthreads CFLAGS=\"-I${PARSECDIR}/pkgs/libs/ssl/inst/${PARSECPLAT}/include -I${PARSECDIR}/pkgs/libs/zlib/inst/${PARSECPLAT}/include ${CFLAGS}\" LDFLAGS=\"-L${PARSECDIR}/pkgs/libs/ssl/inst/${PARSECPLAT}/lib -L${PARSECDIR}/pkgs/libs/zlib/inst/${PARSECPLAT}/lib ${LDFLAGS}\""
+# Ensure the dedup source's bundled openssl headers are preferred to avoid
+# conflicts with the system OpenSSL headers (OpenSSL 3 vs bundled 1.0.x)
+# Add the dedup source root so includes like <openssl/sha.h> pick up the
+# bundled OpenSSL headers in pkgs/kernels/dedup/src/openssl before system
+# Allow legacy common linkage of uninitialized globals (old code assumes this)
+build_env="version=pthreads CFLAGS=\"-fcommon -I${PARSECDIR}/pkgs/kernels/dedup/src -I${PARSECDIR}/pkgs/libs/ssl/inst/${PARSECPLAT}/include -I${PARSECDIR}/pkgs/libs/zlib/inst/${PARSECPLAT}/include ${CFLAGS}\" LDFLAGS=\"-L${PARSECDIR}/pkgs/libs/ssl/inst/${PARSECPLAT}/lib -L${PARSECDIR}/pkgs/libs/zlib/inst/${PARSECPLAT}/lib ${LDFLAGS}\""
 
 # Whether the build system supports only in-place compilation.
 # If TRUE, then all sources will be copied to the build directory before we
